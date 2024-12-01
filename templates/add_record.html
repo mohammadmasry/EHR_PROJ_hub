@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Add Medical Record for {{ patient.name }}</h1>
+    <form method="POST" class="mt-4">
+
+        <div class="form-group">
+            <label for="medications">Medications</label>
+            <textarea id="medications" name="medications" class="form-control" rows="3" placeholder="List medications..."></textarea>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="allergies">Allergies</label>
+            <textarea id="allergies" name="allergies" class="form-control" rows="3" placeholder="List allergies..."></textarea>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="vital-signs">Vital Signs</label>
+            <textarea id="vital-signs" name="vital_signs" class="form-control" rows="3" placeholder="Enter vital signs (e.g., BP, heart rate)..."></textarea>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="diagnosis">Diagnosis</label>
+            <textarea id="diagnosis" name="diagnosis" class="form-control" rows="3" placeholder="Enter diagnosis..."></textarea>
+        </div>
+
+       
+        <div class="form-group">
+            <label for="treatment">Treatment Plan</label>
+            <textarea id="treatment" name="treatment" class="form-control" rows="3" placeholder="Enter treatment plan..."></textarea>
+        </div>
+
+        
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary ">Save Record</button>
+            <a href="{{ url_for('medical_records', patient_id=patient.id) }}" class="btn btn-primary ">Back to Records</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
