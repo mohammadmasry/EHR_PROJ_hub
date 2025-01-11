@@ -1,8 +1,8 @@
-"""new one
+"""Added birth_date to Patient
 
-Revision ID: 720f05336254
+Revision ID: b3c47219ce3d
 Revises: 
-Create Date: 2025-01-11 02:16:21.823341
+Create Date: 2025-01-11 02:42:12.984734
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '720f05336254'
+revision = 'b3c47219ce3d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,6 +30,7 @@ def upgrade():
     sa.Column('name', sa.Text(), nullable=False),
     sa.Column('gender', sa.String(length=50), nullable=False),
     sa.Column('blood_type', sa.String(length=50), nullable=False),
+    sa.Column('birth_date', sa.Date(), nullable=False),
     sa.Column('doctor_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctors.id'], ),
     sa.PrimaryKeyConstraint('id')

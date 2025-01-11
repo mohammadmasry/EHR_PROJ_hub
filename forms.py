@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, IntegerField, SubmitField, SelectField
 from wtforms.validators import DataRequired, EqualTo
+from wtforms.fields import DateField
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -16,6 +17,7 @@ class RegistrationForm(FlaskForm):
 class AddPatientForm(FlaskForm):
     name = StringField('Patient Name', validators=[DataRequired()])
     gender = SelectField('Gender', choices=[('male', 'Male'),('female', 'Female')], validators=[DataRequired()])
+    birth_date = DateField('Birth Date', format='%Y-%m-%d', validators=[DataRequired()])  # New field
     blood_type = SelectField('Blood Type', choices=[
         ('a-positive', 'A+'),
         ('a-negative', 'A-'),
@@ -26,6 +28,7 @@ class AddPatientForm(FlaskForm):
         ('o-positive', 'O+'),
         ('o-negative', 'O-')
     ], validators=[DataRequired()])
+
     submit = SubmitField('Add Patient')
 
 

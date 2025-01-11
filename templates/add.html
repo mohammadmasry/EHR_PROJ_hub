@@ -22,6 +22,12 @@
             <label for="blood_type">{{ form.blood_type.label }}</label>
             {{ form.blood_type(class="form-control", id="blood_type") }}
         </div>
+
+        <!-- Birth Date Field -->
+        <div class="form-group">
+            <label for="birth_date">{{ form.birth_date.label }}</label>
+            {{ form.birth_date(class="form-control", id="birth_date", placeholder="YYYY-MM-DD") }}
+        </div>
         
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Add Patient</button>

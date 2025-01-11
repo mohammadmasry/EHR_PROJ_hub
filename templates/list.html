@@ -9,7 +9,9 @@
                 <th>Name</th>
                 <th>Gender</th>
                 <th>Blood Type</th>
+                <th>Birthday</th>
                 <th>Record</th>
+
             </tr>
         </thead>
         <tbody>
@@ -19,6 +21,8 @@
                 <td>{{ patient.name }}</td>
                 <td>{{ patient.gender }}</td>
                 <td>{{ patient.blood_type }}</td>
+                <td>{{ patient.birth_date }}</td>
+
                 <td>
                     <a href="{{ url_for('medical_records', patient_id=patient.id) }}" class="btn btn-primary btn-sm">View</a>
                 </td>

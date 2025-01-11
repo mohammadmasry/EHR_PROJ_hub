@@ -37,13 +37,15 @@ class Patient(db.Model):
     name = db.Column(db.Text, nullable=False)
     gender = db.Column(db.String(50), nullable=False)  
     blood_type = db.Column(db.String(50), nullable=False)  
+    birth_date = db.Column(db.Date, nullable=False, default='2000-01-01')
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id'))
     medical_records = db.relationship('MedicalRecord', backref='patient', lazy=True)
 
-    def __init__(self, name, gender,blood_type ,doctor_id=None):
+    def __init__(self, name, gender,blood_type, birth_date ,doctor_id=None):
         self.name = name
         self.doctor_id = doctor_id
         self.gender = gender
+        self.birth_date = birth_date
         self.blood_type = blood_type
 
 class MedicalRecord(db.Model):
@@ -109,11 +111,12 @@ def add_patient():
     if form.validate_on_submit():
         name = form.name.data
         gender = form.gender.data  # Get gender from the form
+        birth_date = form.birth_date.data  # New field
         blood_type = form.blood_type.data  # Get blood type from the form
         doctor_id = current_user.id
 
         # Create a new patient object with all required fields
-        new_patient = Patient(name=name, gender=gender, blood_type=blood_type, doctor_id=doctor_id)
+        new_patient = Patient(name=name, gender=gender, birth_date=birth_date, blood_type=blood_type, doctor_id=doctor_id)
         db.session.add(new_patient)
         db.session.commit()
         
