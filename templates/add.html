@@ -4,10 +4,26 @@
     <h2 class="text-center">Add Patient</h2>
     <form method="POST" class="mt-4">
         {{ form.hidden_tag() }}
+        
+        <!-- Name Field -->
         <div class="form-group">
             <label for="name">{{ form.name.label }}</label>
             {{ form.name(class="form-control", id="name", placeholder="Enter patient's name") }}
         </div>
+        
+        <!-- Gender Field -->
+        <div class="form-group">
+            <label for="gender">{{ form.gender.label }}</label>
+            {{ form.gender(class="form-control", id="gender") }}
+        </div>
+        
+        <!-- Blood Type Field -->
+        <div class="form-group">
+            <label for="blood_type">{{ form.blood_type.label }}</label>
+            {{ form.blood_type(class="form-control", id="blood_type") }}
+        </div>
+        
+        <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Add Patient</button>
     </form>
 </div>

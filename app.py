@@ -35,12 +35,16 @@ class Patient(db.Model):
     __tablename__ = 'patients'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False)
+    gender = db.Column(db.String(50), nullable=False)  
+    blood_type = db.Column(db.String(50), nullable=False)  
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id'))
     medical_records = db.relationship('MedicalRecord', backref='patient', lazy=True)
 
-    def __init__(self, name, doctor_id=None):
+    def __init__(self, name, gender,blood_type ,doctor_id=None):
         self.name = name
         self.doctor_id = doctor_id
+        self.gender = gender
+        self.blood_type = blood_type
 
 class MedicalRecord(db.Model):
     __tablename__ = 'medical_records'
@@ -104,13 +108,19 @@ def add_patient():
     form = AddPatientForm()
     if form.validate_on_submit():
         name = form.name.data
+        gender = form.gender.data  # Get gender from the form
+        blood_type = form.blood_type.data  # Get blood type from the form
         doctor_id = current_user.id
-        new_patient = Patient(name=name, doctor_id=doctor_id)
+
+        # Create a new patient object with all required fields
+        new_patient = Patient(name=name, gender=gender, blood_type=blood_type, doctor_id=doctor_id)
         db.session.add(new_patient)
         db.session.commit()
+        
         flash("Patient added successfully!", "success")
         return redirect(url_for('list_patients'))
     return render_template('add.html', form=form)
+
 
 @app.route('/list')
 @login_required
@@ -229,4 +239,4 @@ def delete_record(record_id):
     return redirect(url_for('medical_records', patient_id=record.patient_id))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port = 5000)

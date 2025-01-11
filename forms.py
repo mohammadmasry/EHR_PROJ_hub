@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField, SubmitField
+from wtforms import StringField, PasswordField, IntegerField, SubmitField, SelectField
 from wtforms.validators import DataRequired, EqualTo
 
 class LoginForm(FlaskForm):
@@ -15,6 +15,17 @@ class RegistrationForm(FlaskForm):
 
 class AddPatientForm(FlaskForm):
     name = StringField('Patient Name', validators=[DataRequired()])
+    gender = SelectField('Gender', choices=[('male', 'Male'),('female', 'Female')], validators=[DataRequired()])
+    blood_type = SelectField('Blood Type', choices=[
+        ('a-positive', 'A+'),
+        ('a-negative', 'A-'),
+        ('b-positive', 'B+'),
+        ('b-negative', 'B-'),
+        ('ab-positive', 'AB+'),
+        ('ab-negative', 'AB-'),
+        ('o-positive', 'O+'),
+        ('o-negative', 'O-')
+    ], validators=[DataRequired()])
     submit = SubmitField('Add Patient')
 
 

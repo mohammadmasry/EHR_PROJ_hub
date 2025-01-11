@@ -7,6 +7,8 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Gender</th>
+                <th>Blood Type</th>
                 <th>Record</th>
             </tr>
         </thead>
@@ -15,8 +17,10 @@
             <tr>
                 <td>{{ patient.id }}</td>
                 <td>{{ patient.name }}</td>
+                <td>{{ patient.gender }}</td>
+                <td>{{ patient.blood_type }}</td>
                 <td>
-                    <a href="{{ url_for('medical_records', patient_id=patient.id) }}" class="btn btn-primary btn-sm">View </a>
+                    <a href="{{ url_for('medical_records', patient_id=patient.id) }}" class="btn btn-primary btn-sm">View</a>
                 </td>
             </tr>
             {% endfor %}
