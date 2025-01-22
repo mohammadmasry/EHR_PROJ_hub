@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import AddPatientForm, DeletePatientForm, LoginForm, RegistrationForm
+from forms import AddPatientForm, DeletePatientForm, LoginForm, RegistrationForm, EditPatientForm
 from config import Config
 
 # Flask app setup
@@ -82,6 +82,10 @@ def register():
         db.session.commit()
         flash("Account created successfully! Please log in.", "success")
         return redirect(url_for('login'))
+    elif form.errors:  # Check if there are validation errors
+        for field, error_list in form.errors.items():
+            for error in error_list:
+                flash(f"{field.capitalize()}: {error}", "danger")  # Display errors with flash messages
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -95,7 +99,12 @@ def login():
             return redirect(url_for('index'))
         else:
             flash("Invalid username or password. Try again.", "danger")
+    elif form.errors:  # Check if there are validation errors
+        for field, error_list in form.errors.items():
+            for error in error_list:
+                flash(f"{field.capitalize()}: {error}", "danger")  # Display errors with flash messages
     return render_template('login.html', form=form)
+
 
 @app.route('/logout')
 @login_required
@@ -123,6 +132,35 @@ def add_patient():
         flash("Patient added successfully!", "success")
         return redirect(url_for('list_patients'))
     return render_template('add.html', form=form)
+
+@app.route('/edit_patient/<int:patient_id>', methods=['GET', 'POST'])
+@login_required
+def edit_patient(patient_id):
+
+    patient = Patient.query.filter_by(id=patient_id, doctor_id=current_user.id).first()
+    
+
+    if not patient:
+        flash("Unauthorized access or patient not found.", "danger")
+        return redirect(url_for('list_patients'))
+    
+    form = EditPatientForm(obj=patient)  
+    
+    if form.validate_on_submit():
+
+        patient.name = form.name.data
+        patient.gender = form.gender.data
+        patient.birth_date = form.birth_date.data
+        patient.blood_type = form.blood_type.data
+        
+
+        db.session.commit()
+        
+        flash("Patient details updated successfully!", "success")
+        return redirect(url_for('list_patients'))
+    
+    return render_template('edit_patient.html', form=form, patient=patient)
+
 
 
 @app.route('/list')

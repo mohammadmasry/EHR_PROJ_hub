@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center">Medical Records for Patient {{ patient.name }}</h2>
+    <h2 class="text-center" style="color: white;" >Medical Records for Patient {{ patient.name }}</h2>
 
     <div class="text-end mb-3">
-        <a href="{{ url_for('add_record', patient_id=patient.id) }}" class="btn btn-primary btn-sm">Add Record</a>
+        <a href="{{ url_for('add_record', patient_id=patient.id) }}" class="btn btn-primary btn-sm" >Add Record</a>
     </div>
     
     <table class="table table-striped mt-3">
         <thead>
             <tr>
-                <th>Record ID</th>
+                <th style="color: white;" >Record ID</th>
                  <th></th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@
         </tbody>
     </table>
     {% if not medical_records %}
-        <p class="text-center text-muted">No records found for this patient.</p>
+        <p class="text-center " style="color: rgb(251, 249, 249);" >No records found for this patient.</p>
     {% endif %}
 </div>
 {% endblock %}
