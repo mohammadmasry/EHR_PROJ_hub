@@ -7,15 +7,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from forms import AddPatientForm, DeletePatientForm, LoginForm, RegistrationForm, EditPatientForm
 from config import Config
 
-# Flask app setup
+# setting flask
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Database setup
+# Db setup
 db = SQLAlchemy(app)
 Migrate(app, db)
 
-# Login setup
+# Login 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -162,7 +162,7 @@ def edit_patient(patient_id):
     return render_template('edit_patient.html', form=form, patient=patient)
 
 
-
+# you list the patients
 @app.route('/list')
 @login_required
 def list_patients():
@@ -205,14 +205,14 @@ def add_record(patient_id):
         return redirect(url_for('list_patients'))
     
     if request.method == 'POST':
-        # Get form data
+        # (just adde <3 )Get form data
         medications = request.form.get('medications')
         allergies = request.form.get('allergies')
         vital_signs = request.form.get('vital_signs')
         diagnosis = request.form.get('diagnosis')
         treatment_plan = request.form.get('treatment')
         
-        # Create and save the new record
+        # you are for the new rec
         new_record = MedicalRecord(
             patient_id=patient_id,
             medications=medications,
